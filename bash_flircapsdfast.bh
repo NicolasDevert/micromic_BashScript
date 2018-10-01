@@ -1,0 +1,33 @@
+#!/bin/bash
+SOURCE_PATH="/media/sf_D_DRIVE/micromic_data/flircapsdfast/"
+
+echo $today_year
+echo $today_year_mounth
+echo $today_year_mounth_day
+
+for entry in  `ls -U $SOURCE_PATH`; do
+    year_of_file=$(echo "$entry" | head -c 16 | tail -c 4)
+    month_of_file=$(echo "$entry" | head -c 18 | tail -c 2)
+    day_of_file=$(echo "$entry" | head -c 20 | tail -c 2)
+    hour_of_file=$(echo "$entry" | head -c 23 | tail -c 2)
+    min_of_file=$(echo "$entry" | head -c 25 | tail -c 2)
+
+    fullFilePath=$SOURCE_PATH
+    fullFilePath+=$year_of_file
+    fullFilePath+=/
+    fullFilePath+=$month_of_file
+    fullFilePath+=/
+    fullFilePath+=$day_of_file
+    fullFilePath+=/
+    fullFilePath+=$hour_of_file
+    fullFilePath+=/
+    fullFilePath+=$min_of_file
+    fullFilePath+=/
+    destFullPath=$SOURCE_PATH
+    destFullPath+=$entry
+
+    printf $entry
+
+    mkdir --parents $fullFilePath; mv -f $destFullPath $_
+done
+
